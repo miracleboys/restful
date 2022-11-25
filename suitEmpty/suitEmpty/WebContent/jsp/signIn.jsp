@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <% String path=request.getContextPath(); String basePath=request.getScheme() + "://" + request.getServerName() + ":"
+        + request.getServerPort() + path; %>
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +11,9 @@
     <link rel="stylesheet" href="../css/signIn.css">
     <!-- 引入jquery -->
     <script src="../js/jquery.min.js"></script>
+    <!-- 引入js -->
+    <script src="../js/signIn.js"></script>
+    <script src="../js/main.js"></script>
     <title>登录</title>
 </head>
 
@@ -20,7 +25,7 @@
             <h1>WELCOME</h1>
             <p>JOIN US!</p>
             <div class="img-box">
-                <img src="../images/waoku.jpg" alt="">
+                <img src="../images/waoku.jpg" alt="" class="qaq">
             </div>
         </div>
         <!-- 注册盒子 -->
@@ -31,13 +36,34 @@
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
-                <input type="text" placeholder="用户名">
-                <input type="password" placeholder="密码">
-                <input type="password" placeholder="确认密码">
+                用户名称：<input type="text" placeholder="用户名称" id="username">
+                <br>
+                用户实名：<input type="text" placeholder="用户实名" id="name">
+                <br>
+                账号密码：<input type="password" placeholder="密码" id="password">
+                <br>
+                密码确认：<input type="password" placeholder="密码确认" id="rpassword">
+                <div class="sex_select">
+                    性别：
+                    <input type="radio" value="male" name="sex" id="male" onclick="sexmale()">男
+                    <input type="radio" value="fmale" name="sex" id="fmale" onclick="sexfmale()">女
+                </div>
+               
+                <button onclick="model()">模型选择</button>
+                <div id="maleModel">
+                    <div><img src="../images/data/model/mheadA.png" alt="" onclick="mheadA()" class="mheadA"></div>
+                    <div><img src="../images/data/model/mheadB.png" alt="" onclick="mheadB()" class="mheadB"></div>
+                </div>
+                <div id="fmaleModel">
+                    <div><img src="../images/data/model/wheadA.png" alt="" onclick="wheadA()" class="mheadA"></div>
+                    <div><img src="../images/data/model/wheadB.png" alt="" onclick="wheadB()" class="mheadB"></div>
+                </div>
+
             </div>
+            <br>
             <!-- 按钮盒子 -->
             <div class="btn-box">
-                <button>注册</button>
+                <button  onclick="signOn()">注册</button>
                 <!-- 绑定点击事件 -->
                 <p onclick="mySwitch()">已有账号?去登录</p>
             </div>
@@ -45,13 +71,14 @@
         <!-- 登录盒子 -->
         <div class="login-form">
             <!-- 标题盒子 -->
-            <div class="title-box">
+            <div class="title-box" id="lognin">
                 <h1>登录</h1>
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
-                <input type="text" placeholder="用户名">
-                <input type="password" placeholder="密码">
+                用户名称：<input type="text" placeholder="用户名">
+                <br>
+                账号密码：<input type="password" placeholder="密码">
             </div>
             <!-- 按钮盒子 -->
             <div class="btn-box">
@@ -61,52 +88,28 @@
             </div>
         </div>
     </div>
-    <script>
-        // 滑动的状态
-        let flag = true
-        const mySwitch = () => {
-            if (flag) {
-                // 获取到滑动盒子的dom元素并修改它移动的位置
-                $(".pre-box").css("transform", "translateX(100%)")
-                // 获取到滑动盒子的dom元素并修改它的背景颜色
-                $(".pre-box").css("background-color", "#c9e0ed")
-                //修改图片的路径
-                $("img").attr("src", "../images/wuwu.jpeg")
-
-            }
-            else {
-                $(".pre-box").css("transform", "translateX(0%)")
-                $(".pre-box").css("background-color", "#edd4dc")
-                $("img").attr("src", "./img/waoku.jpg")
-            }
-            flag = !flag
-        }
-    </script>
-    <script>
-        const bubleCreate = () => {
-            // 获取body元素
-            const body = document.body
-            // 创建泡泡元素
-            const buble = document.createElement('span')
-            // 设置泡泡半径
-            let r = Math.random() * 5 + 25 //半径大小为25~30
-            // 设置泡泡的宽高
-            buble.style.width = r + 'px'
-            buble.style.height = r + 'px'
-            // 设置泡泡的随机起点
-            buble.style.left = Math.random() * innerWidth + 'px'
-            // 为body添加buble元素
-            body.append(buble)
-            // 4s清除一次泡泡
-            setTimeout(() => {
-                buble.remove()
-            }, 4000)
-        }
-        // 每200ms生成一个泡泡
-        setInterval(() => {
-            bubleCreate()
-        }, 200);
-    </script>
 </body>
+<script >
+//运行查询
+$(document).ready(function () {
+    
+});
 
+ // 页面跳转
+    function doIndex (){
+        alert("注册成功");
+    }
+
+// 账号注册
+function signOn(){
+    // 注册用户
+    var user = {};
+    user.name = $("#username").val();
+    user.password = $("#password").val();
+
+    request("POST","<%=basePath%>/user/signUp",user,doIndex,serverError)
+
+
+}
+</script>
 </html>

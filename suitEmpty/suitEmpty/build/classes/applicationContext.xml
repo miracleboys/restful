@@ -16,7 +16,7 @@
 	
 	<!-- Jpa Entity Manager 配置 -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" depends-on="dataSource"> 
-		<property name="dataSource" ref="sqlserver2008"/>
+		<property name="dataSource" ref="DM8"/>
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
 		<!-- 加入定制化包路径com.sample -->
 		<property name="packagesToScan" value="restful.entity"/>		

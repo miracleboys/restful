@@ -156,8 +156,8 @@ span {
 
 /* 标题盒子 */
 .title-box {
-    height: 300px;
-    line-height: 500px;
+    height: 100px;
+    line-height: 100px;
 
 }
 
@@ -172,9 +172,16 @@ span {
 
 }
 
+#lognin{
+    height: 250px;
+    line-height: 300px;
+}
+
+
 /* 输入框盒子 */
 .input-box {
-    display: flex;
+    /* display: flex; */
+    text-align: center;
     /* 纵向布局 */
     flex-direction: column;
     /* 水平居中 */
@@ -203,6 +210,24 @@ input:focus {
 /* 聚焦时隐藏文字 */
 input:focus::placeholder {
     opacity: 0;
+}
+
+/* 单选框 */
+.sex_select{
+    /* line-height: 44px; */
+}
+
+#male{
+   height: 15px;
+    width: 20px;
+    margin: 0;
+    
+}
+
+#fmale{
+    height: 15px;
+    width: 20px;
+    margin: 0;
 }
 
 /* 按钮盒子 */
@@ -245,4 +270,50 @@ button:hover {
 .btn-box p:hover {
     cursor: pointer;
     border-bottom: 1px solid white;
+}
+
+/* 模型 */
+#maleModel{
+    display: none;
+    height: 100px;
+        width: auto;
+}
+#maleModel div{
+    float: left;
+    width: 50%;
+}
+#maleModel div img{
+    width: 54px;
+    height: 81px;
+}
+
+#maleModel div img:hover{
+    border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        border-left: 3px solid #000;
+        border-top: 3px solid #000;
+}
+
+
+#fmaleModel{
+    display:none;
+    height: 100px;
+    width:auto;
+    
+}
+
+#fmaleModel div {
+    float: left;
+    width: 50%;
+}
+#fmaleModel div img {
+    width: 54px;
+    height: 81px;
+}
+
+#fmaleModel div img:hover {
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-left: 3px solid #000;
+    border-top: 3px solid #000;
 }
