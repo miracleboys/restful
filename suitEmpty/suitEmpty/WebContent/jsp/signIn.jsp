@@ -76,13 +76,13 @@
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
-                用户名称：<input type="text" placeholder="用户名">
+                用户名称：<input type="text" placeholder="用户名" id="login_username">
                 <br>
-                账号密码：<input type="password" placeholder="密码">
+                账号密码：<input type="password" placeholder="密码" id="login_password">
             </div>
             <!-- 按钮盒子 -->
             <div class="btn-box">
-                <button>登录</button>
+                <button onclick="signIn()">登录</button>
                 <!-- 绑定点击事件 -->
                 <p onclick="mySwitch()">没有账号?去注册</p>
             </div>
@@ -95,21 +95,50 @@ $(document).ready(function () {
     
 });
 
- // 页面跳转
-    function doIndex (){
-        alert("注册成功");
-    }
+ // 注册成功后事件
+function doIndex (){
+    alert("注册成功");
+}
 
 // 账号注册
 function signOn(){
     // 注册用户
     var user = {};
-    user.name = $("#username").val();
+    // 用户名称
+    user.username = $("#username").val();
+    
+    // 用户实名
+    user.name = $("#name").val();
+    
+    
+    // 密码
     user.password = $("#password").val();
-
+    
+    // 性别
+    user.sex = $("input[name=sex]:checked").val();
+    
+    // 头像
+    
+    
     request("POST","<%=basePath%>/user/signUp",user,doIndex,serverError)
 
 
 }
+
+// 账号登录
+function signIn(){
+	// console.log("登录");
+	// 登录用户
+	var user = {};
+	
+	// 登录用户名称 
+	
+	
+	// 登录用户密码
+	
+	
+}
+
+
 </script>
 </html>
