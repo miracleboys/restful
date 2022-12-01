@@ -96,7 +96,7 @@ $(document).ready(function () {
 });
 
  // 注册成功后事件
-function doIndex (){
+function doSignUp (){
     alert("注册成功");
 }
 
@@ -120,23 +120,35 @@ function signOn(){
     // 头像
     
     
-    request("POST","<%=basePath%>/user/signUp",user,doIndex,serverError)
+    // 数据检验
+    console.log(user);
+    
+    request("POST","<%=basePath%>/user/signUp",user,doSignUp,serverError)
 
 
 }
 
+// 登录成功后事件
+function doSignIn(){
+	  alert("登录成功");
+}
+
+
 // 账号登录
 function signIn(){
-	// console.log("登录");
+	console.log("登录");
 	// 登录用户
 	var user = {};
 	
 	// 登录用户名称 
-	
+	user.username = $("#login_username").val();
 	
 	// 登录用户密码
+	user.password = $("#login_password").val();
 	
 	
+	
+	request("POST","<%=basePath%>/user/signIn",user,doSignIn,serverError)
 }
 
 

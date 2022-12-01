@@ -1,10 +1,16 @@
 package restful.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+	@NamedQuery(name = "User.signIn", query="SELECT user FROM User user where user.username like :username")
+})
+
 public class User  extends IdEntity{
 	private String username;
 	private String name;

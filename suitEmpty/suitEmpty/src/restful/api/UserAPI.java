@@ -1,5 +1,7 @@
 package restful.api;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,10 +28,24 @@ public class UserAPI {
 		EM.getEntityManager().getTransaction().commit();
 		
 		// 向客户端返回JSON格式的Result对象结果
-		return new Result(0, "添加成功", user, "");
+		return new Result(0, "注册成功", user, "");
 	}
 	
 	// 账号登录
+	@POST
+	@Path("/signIn")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result signIn(User user) {
+		
+		List<User> result = EM.getEntityManager()
+				.createNamedQuery("User.signIn", User.class)
+				.setParameter("username","%"+user.getUsername()+"%") 
+				.getResultList();
+		
+		// 向客户端返回JSON格式的Result对象结果
+		return new Result(0, "登录成功", result, "");
+	}
 	
 	
 }
