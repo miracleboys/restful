@@ -21,6 +21,10 @@ public class UserAPI {
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
 	public Result signUp(User user) {
+		// 后台API必须进行合法性校验后才能存入数据库
+		// username相同
+		
+		
 		// 存入数据库
 		user.setId(0);
 		user = EM.getEntityManager().merge(user);

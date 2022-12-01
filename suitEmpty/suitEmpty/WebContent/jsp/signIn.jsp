@@ -14,7 +14,8 @@
     <!-- 引入js -->
     <script src="../js/signIn.js"></script>
     <script src="../js/main.js"></script>
-    <title>登录</title>
+    <title>账号登录与注册</title>
+    <link rel="shortcut icon" href="../images/logo.ico">
 </head>
 
 <body>
@@ -61,6 +62,7 @@
 
             </div>
             <br>
+            <div class="tip"></div>
             <!-- 按钮盒子 -->
             <div class="btn-box">
                 <button  onclick="signOn()">注册</button>
@@ -95,9 +97,65 @@ $(document).ready(function () {
     
 });
 
+// 注册检测提示
+function Tip(msg){
+	$(".tip").show().html("<div class='prompt'><i class='tishi_icon'></i>"+msg+"</div>");
+}
+
  // 注册成功后事件
 function doSignUp (){
     alert("注册成功");
+}
+ 
+// 注册检验
+function cliLogin(){
+	// 注册用户
+    var user = {};
+    // 用户名称
+    user.username = $("#username").val();
+    var usernameflag = false;
+    // 用户实名
+    user.name = $("#name").val();
+    var nameflag = false;
+    // 密码
+    user.password = $("#password").val();
+    user.rpassword = $("#rpassword").val();
+    var passwordflag = false;
+ 	// 性别
+    user.sex = $("input[name=sex]:checked").val();
+    var sexflag = false;
+    
+    console.log(user);
+    
+    if(user.username == ""){
+    	Tip('用户名称不能为空');
+    }else{
+    	usernameflag = true;
+    	if(user.name == ""){
+    		Tip('用户实名不能为空');
+    	}else{
+    		nameflag = true;
+    		if(user.password == ""){
+    			Tip('账号密码不能为空');
+    		}else{
+    			if(user.password != user.rpassword){
+        			Tip('两次密码不一致');
+        		}else{
+        			passwordflag = true;
+        			if(user.sex == undefined){
+        				Tip('请选择性别');
+        			}else{
+        				sexflag = true;
+        				// 头像
+        			}
+        		}
+    		}
+    		
+    	}
+    }
+    
+    return usernameflag & nameflag & passwordflag & sexflag;
+    
 }
 
 // 账号注册
@@ -121,10 +179,13 @@ function signOn(){
     
     
     // 数据检验
-    console.log(user);
     
-    request("POST","<%=basePath%>/user/signUp",user,doSignUp,serverError)
-
+    
+    
+    if(cliLogin()){
+    	request("POST","<%=basePath%>/user/signUp",user,doSignUp,serverError);
+    }
+    
 
 }
 
