@@ -23,25 +23,40 @@ public class UserAPI {
 	@Produces("application/json;charset=UTF-8")
 	public Result signUp(User user) {
 		// 后台API必须进行合法性校验后才能存入数据库
-		// username相同
+		
+		// 寻找相同的用户名称
+		List<User> sameUsername = EM.getEntityManager()
+				.createNamedQuery("User.signUp",User.class)
+				.setParameter("username","%"+user.getUsername()+"%")
+				.getResultList();
+		
+		System.out.println(sameUsername);
+		
+		if(sameUsername.isEmpty()) {
+			// 存入数据库,错误会服务器故障
+			user.setId(0);
+			user = EM.getEntityManager().merge(user);
+			EM.getEntityManager().persist(user);
+			EM.getEntityManager().getTransaction().commit();
+			
+			// 向客户端返回JSON格式的Result对象结果
+			return new Result(0, "注册成功", user, "");
+		}else {
+			// 数据库存在相同用户名称
+			return new Result(-1,"注册失败，存在相同的用户名称", user, "");
+		}
 		
 		
-		// 存入数据库
-		user.setId(0);
-		user = EM.getEntityManager().merge(user);
-		EM.getEntityManager().persist(user);
-		EM.getEntityManager().getTransaction().commit();
-		
-		// 向客户端返回JSON格式的Result对象结果
-		return new Result(0, "注册成功", user, "");
 	}
+	
+	
 	
 	// 账号登录
 	@POST
 	@Path("/signIn")
 	@Consumes("application/json;charset=UTF-8")
-	@Produces("text/html;charset=UTF-8")
-	public String signIn(User user,HttpServletRequest request) {
+	@Produces("application/json;charset=UTF-8")
+	public Result signIn(User user) {
 		
 		// 数据库获取
 		List<User> result = EM.getEntityManager()
@@ -51,12 +66,17 @@ public class UserAPI {
 		
 		// 是否获取
 		
-		String a = "登录成功";
+		System.out.println("--------------");
+		System.out.println(result);
+		System.out.println("--------------");
+		System.out.println("--------------");
 		
-//		return new Result(0, "登录成功", result, "");
-		return String.format("%s", a);
-		
+		return new Result(0, "登录成功", result, "suit/jsp/index.jsp");
 	}
+	
+	
+	// 主界面
+
 	
 	
 }

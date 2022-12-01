@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 @NamedQueries({
+	@NamedQuery(name = "User.signUp", query="SELECT user FROM User user where user.username like :username"),
 	@NamedQuery(name = "User.signIn", query="SELECT user FROM User user where user.username like :username")
 })
 
@@ -15,7 +16,7 @@ public class User  extends IdEntity{
 	private String username;
 	private String name;
 	private String password;
-	private String sex;
+	private int sex;
 	private String model;
 	
 	public String getUsername() {
@@ -24,10 +25,11 @@ public class User  extends IdEntity{
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getSex() {
+
+	public int getSex() {
 		return sex;
 	}
-	public void setSex(String sex) {
+	public void setSex(int sex) {
 		this.sex = sex;
 	}
 	public String getModel() {

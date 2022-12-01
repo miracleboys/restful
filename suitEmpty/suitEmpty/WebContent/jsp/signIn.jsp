@@ -78,9 +78,11 @@
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
+            <form action="index.jsp" id="formIndex">
                 用户名称：<input type="text" placeholder="用户名" id="login_username">
                 <br>
                 账号密码：<input type="password" placeholder="密码" id="login_password">
+                </form>
             </div>
             <!-- 按钮盒子 -->
             <div class="btn-box">
@@ -107,9 +109,9 @@ function doSignUp (data){
     
     console.log(data);
     if(data.code == 0){
-    	alert("注册成功");
+    	alert(data.description);
     }else{
-    	alert("注册失败");
+    	alert(data.description);
     }
 }
  
@@ -180,13 +182,18 @@ function signOn(){
     
     // 性别 ... bit
     user.sex = $("input[name=sex]:checked").val();
+    if(user.sex == "male"){
+    	user.sex = 1
+    }else{
+    	user.sex = 0
+    }
     
     // 头像
     
     
     // 数据检验
     
-    
+    console.log(user);
     
     if(cliLogin()){
     	request("POST","<%=basePath%>/user/signUp",user,doSignUp,serverError);
@@ -197,8 +204,15 @@ function signOn(){
 
 // 登录成功后事件
 function doSignIn(data){
-	  //alert("发送成功");
-	  console.log("发送成功");
+	  // alert("发送成功");
+	  console.log(data);
+	  if(data.code == 0){
+		  // data.nextAction
+		  console.log("发送成功");
+		  // form提交
+		  $("#formIndex").submit();
+		  
+	  }
 	  
 }
 
@@ -215,7 +229,7 @@ function signIn(){
 	// 登录用户密码
 	user.password = $("#login_password").val();
 	
-	
+	console.log(user);
 	// 发送登录请求
 	request("POST","<%=basePath%>/user/signIn",user,doSignIn,serverError)
 }
