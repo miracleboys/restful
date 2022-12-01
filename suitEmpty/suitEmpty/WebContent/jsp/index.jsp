@@ -4,6 +4,7 @@
 <html>
 <head>
 <title>梦想试衣间</title>
+<link rel="shortcut icon" href="../images/logo.ico">
 <script type="text/javascript" src="<%=basePath%>/js/jquery.min.js"></script>
 </head>
 <frameset rows="50,*" >

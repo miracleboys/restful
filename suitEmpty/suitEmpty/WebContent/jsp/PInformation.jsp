@@ -9,7 +9,7 @@
     <!-- 引入css文件 -->
     <link rel="stylesheet" href="../css/PInformation.css">
     <!-- 引入jquery -->
-    <script src="js/jquery.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <!-- 引入js -->
     <script src="../js/signIn.js"></script>
     <script src="../js/main.js"></script>
@@ -27,7 +27,7 @@
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
-                用户名称：<input type="text" placeholder="用户名称" id="username">
+                用户名称：<input type="text" placeholder="用户名称" id="username" >
                 <br>
                 用户实名：<input type="text" placeholder="用户实名" id="name">
                 <br>
@@ -54,15 +54,32 @@
             <br>
             <!-- 按钮盒子 -->
             <div class="btn-box">
-                <button  onclick="">保存修改</button>
+                <button  onclick="">保存信息</button>
             </div>
         </div>
         
     </div>
 </body>
 <script >
-//运行查询
+//运行时执行
 $(document).ready(function () {
-    
+	//console.log($("#username")[0]);
+	// 用户名称
+	var username = $("#username")[0];
+	username.value = "sss";
+	// 用户实名
+	var name = $("#name")[0];
+	name.value = "sgs";
+	
+	// 性别
+	
+	// 模型
+	
 });
+
+
+
+
+
 </script>
+</html>

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "users")
 @NamedQueries({
 	@NamedQuery(name = "User.signUp", query="SELECT user FROM User user where user.username like :username"),
-	@NamedQuery(name = "User.signIn", query="SELECT user FROM User user where user.username like :username")
+	@NamedQuery(name = "User.signIn", query="SELECT user FROM User user where user.username like :username and user.password like :password")
 })
 
 public class User  extends IdEntity{
@@ -18,7 +18,14 @@ public class User  extends IdEntity{
 	private String password;
 	private int sex;
 	private String model;
+	private int power = 0;
 	
+	public int getPower() {
+		return power;
+	}
+	public void setPower(int power) {
+		this.power = power;
+	}
 	public String getUsername() {
 		return username;
 	}

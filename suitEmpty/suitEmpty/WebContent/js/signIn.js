@@ -87,7 +87,8 @@ function sexfmale() {
      $("#maleModel").css("display", "none");
   }
 }
-
+// 选择头像
+let userModel = null;
 // 男性
 var flag3 = 0;
 
@@ -99,6 +100,7 @@ function mheadA() {
      $(".mheadA").css("border-right", "3px solid #000");
      $(".mheadA").css("border-bottom", "3px solid #000");
      flag3 = 1;
+     userModel = "mheadA";
   }else if (flag3 == 1) {
     $(".mheadA").css("border-left", "");
     $(".mheadA").css("border-top", "");
@@ -117,6 +119,7 @@ function mheadB() {
      $(".mheadB").css("border-right", "3px solid #000");
      $(".mheadB").css("border-bottom", "3px solid #000");
      flag3 = -1;
+     userModel = "mheadB";
   }else if (flag3 == -1){
      $(".mheadB").css("border-left", "");
      $(".mheadB").css("border-top", "");
@@ -139,6 +142,7 @@ function wheadA() {
     $(".mheadA").css("border-right", "3px solid #000");
     $(".mheadA").css("border-bottom", "3px solid #000");
     flag4 = 1;
+    userModel = "wheadA";
   } else if (flag4 == 1) {
     $(".mheadA").css("border-left", "");
     $(".mheadA").css("border-top", "");
@@ -156,6 +160,7 @@ function wheadB() {
     $(".mheadB").css("border-right", "3px solid #000");
     $(".mheadB").css("border-bottom", "3px solid #000");
     flag4 = -1;
+    userModel = "wheadB";
   } else if (flag4 == -1) {
     $(".mheadB").css("border-left", "");
     $(".mheadB").css("border-top", "");

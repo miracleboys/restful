@@ -25,14 +25,14 @@ public class UserAPI {
 		// 后台API必须进行合法性校验后才能存入数据库
 		
 		// 寻找相同的用户名称
-		List<User> sameUsername = EM.getEntityManager()
+		List<User> result = EM.getEntityManager()
 				.createNamedQuery("User.signUp",User.class)
 				.setParameter("username","%"+user.getUsername()+"%")
 				.getResultList();
 		
-		System.out.println(sameUsername);
+		System.out.println(result);
 		
-		if(sameUsername.isEmpty()) {
+		if(result.isEmpty()) {
 			// 存入数据库,错误会服务器故障
 			user.setId(0);
 			user = EM.getEntityManager().merge(user);
@@ -61,21 +61,46 @@ public class UserAPI {
 		// 数据库获取
 		List<User> result = EM.getEntityManager()
 				.createNamedQuery("User.signIn", User.class)
-				.setParameter("username","%"+user.getUsername()+"%") 
+				.setParameter("username","%"+user.getUsername()+"%")
+				.setParameter("password","%"+user.getPassword()+"%")
 				.getResultList();
 		
 		// 是否获取
+		if(result.isEmpty()) {
+			// 未找到
+			return new Result(-1, "登录失败，名称或密码错误", user, "");
+		}else {
+			// 找到
+			return new Result(0, "登录成功", result, "");
+		}
+	
 		
-		System.out.println("--------------");
-		System.out.println(result);
-		System.out.println("--------------");
-		System.out.println("--------------");
-		
-		return new Result(0, "登录成功", result, "suit/jsp/index.jsp");
 	}
 	
 	
-	// 主界面
+	// 个人账号管理
+	@POST
+	@Path("/update")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result update(User user) {
+		// 信息修改
+		EM.getEntityManager().persist(EM.getEntityManager().merge(user));
+		EM.getEntityManager().getTransaction().commit();
+		return new Result(0, "用户信息修改成功", user, "");
+	}
+	
+	
+	// 删除
+	@POST
+	@Path("/update")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result delete(User user) {
+		EM.getEntityManager().remove(EM.getEntityManager().merge(user));
+		EM.getEntityManager().getTransaction().commit();
+		return new Result(0,"成功删除",user,"");
+	}
 
 	
 	

@@ -37,6 +37,7 @@
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
+            <form action="signIn.jsp" id="formSignUp">
                 用户名称：<input type="text" placeholder="用户名称" id="username">
                 <br>
                 用户实名：<input type="text" placeholder="用户实名" id="name">
@@ -49,8 +50,8 @@
                     <input type="radio" value="male" name="sex" id="male" onclick="sexmale()">男
                     <input type="radio" value="fmale" name="sex" id="fmale" onclick="sexfmale()">女
                 </div>
-               
-                <button onclick="model()">模型选择</button>
+               <!-- 阻止form提交 -->
+                <button onclick="model(); return false;">模型选择</button>
                 <div id="maleModel">
                     <div><img src="../images/data/model/mheadA.png" alt="" onclick="mheadA()" class="mheadA"></div>
                     <div><img src="../images/data/model/mheadB.png" alt="" onclick="mheadB()" class="mheadB"></div>
@@ -59,7 +60,7 @@
                     <div><img src="../images/data/model/wheadA.png" alt="" onclick="wheadA()" class="mheadA"></div>
                     <div><img src="../images/data/model/wheadB.png" alt="" onclick="wheadB()" class="mheadB"></div>
                 </div>
-
+                </form>
             </div>
             <br>
             <div class="tip"></div>
@@ -78,7 +79,7 @@
             </div>
             <!-- 输入框盒子 -->
             <div class="input-box">
-            <form action="index.jsp" id="formIndex">
+            <form action="index.jsp" id="formSignIn">
                 用户名称：<input type="text" placeholder="用户名" id="login_username">
                 <br>
                 账号密码：<input type="password" placeholder="密码" id="login_password">
@@ -94,6 +95,7 @@
     </div>
 </body>
 <script >
+var op = 0;
 //运行查询
 $(document).ready(function () {
     
@@ -109,9 +111,16 @@ function doSignUp (data){
     
     console.log(data);
     if(data.code == 0){
+    	// 注册成功
     	alert(data.description);
+    	
+    	// 页面刷新，路径会有参数
+    	$("#formSignUp").action = "signIn.jsp";
+    	$("#formSignUp").submit();
     }else{
+    	// 注册失败
     	alert(data.description);
+    	
     }
 }
  
@@ -180,7 +189,7 @@ function signOn(){
     // 密码
     user.password = $("#password").val();
     
-    // 性别 ... bit
+    // 性别类型转换
     user.sex = $("input[name=sex]:checked").val();
     if(user.sex == "male"){
     	user.sex = 1
@@ -188,10 +197,11 @@ function signOn(){
     	user.sex = 0
     }
     
-    // 头像
+    // 头像，可以获取signIn.js里的数据
+    user.model = userModel;
     
     
-    // 数据检验
+    console.log(user.model);
     
     console.log(user);
     
@@ -207,11 +217,16 @@ function doSignIn(data){
 	  // alert("发送成功");
 	  console.log(data);
 	  if(data.code == 0){
-		  // data.nextAction
-		  console.log("发送成功");
-		  // form提交
-		  $("#formIndex").submit();
+		  // 
+		  console.log(data.description);
+		  alert(data.description);
 		  
+		  // form提交，页面跳转
+		  $("#formSignIn").submit();
+		  
+	  }else{
+		  // 登录失败
+		  alert(data.description);
 	  }
 	  
 }
