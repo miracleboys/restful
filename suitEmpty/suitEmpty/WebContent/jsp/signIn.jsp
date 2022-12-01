@@ -102,9 +102,15 @@ function Tip(msg){
 	$(".tip").show().html("<div class='prompt'><i class='tishi_icon'></i>"+msg+"</div>");
 }
 
- // 注册成功后事件
-function doSignUp (){
-    alert("注册成功");
+ // 注册发送到后台后事件
+function doSignUp (data){
+    
+    console.log(data);
+    if(data.code == 0){
+    	alert("注册成功");
+    }else{
+    	alert("注册失败");
+    }
 }
  
 // 注册检验
@@ -125,7 +131,7 @@ function cliLogin(){
     user.sex = $("input[name=sex]:checked").val();
     var sexflag = false;
     
-    console.log(user);
+    // console.log(user);
     
     if(user.username == ""){
     	Tip('用户名称不能为空');
@@ -172,7 +178,7 @@ function signOn(){
     // 密码
     user.password = $("#password").val();
     
-    // 性别
+    // 性别 ... bit
     user.sex = $("input[name=sex]:checked").val();
     
     // 头像
@@ -190,8 +196,10 @@ function signOn(){
 }
 
 // 登录成功后事件
-function doSignIn(){
-	  alert("登录成功");
+function doSignIn(data){
+	  //alert("发送成功");
+	  console.log("发送成功");
+	  
 }
 
 
@@ -208,7 +216,7 @@ function signIn(){
 	user.password = $("#login_password").val();
 	
 	
-	
+	// 发送登录请求
 	request("POST","<%=basePath%>/user/signIn",user,doSignIn,serverError)
 }
 

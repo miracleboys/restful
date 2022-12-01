@@ -2,6 +2,7 @@ package restful.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -39,16 +40,22 @@ public class UserAPI {
 	@POST
 	@Path("/signIn")
 	@Consumes("application/json;charset=UTF-8")
-	@Produces("application/json;charset=UTF-8")
-	public Result signIn(User user) {
+	@Produces("text/html;charset=UTF-8")
+	public String signIn(User user,HttpServletRequest request) {
 		
+		// 数据库获取
 		List<User> result = EM.getEntityManager()
 				.createNamedQuery("User.signIn", User.class)
 				.setParameter("username","%"+user.getUsername()+"%") 
 				.getResultList();
 		
-		// 向客户端返回JSON格式的Result对象结果
-		return new Result(0, "登录成功", result, "");
+		// 是否获取
+		
+		String a = "登录成功";
+		
+//		return new Result(0, "登录成功", result, "");
+		return String.format("%s", a);
+		
 	}
 	
 	

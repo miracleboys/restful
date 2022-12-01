@@ -22,6 +22,7 @@ function uploadFileRequest(suit,urlPrefix){
 }
 
 
+// 显示消息
 function showMessage(data){	
 	alert(data.description);
 }
