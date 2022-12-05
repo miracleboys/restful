@@ -1,0 +1,123 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    /* 溢出隐藏 */
+    overflow-x: hidden;
+    /* 渐变方向从左到右 */
+    background: linear-gradient(to right, rgb(247, 209, 215), rgb(191, 227, 241));
+}
+/* 输入框盒子 */
+.input-box {
+    /* display: flex; */
+    text-align: center;
+    /* 纵向布局 */
+    flex-direction: column;
+    /* 水平居中 */
+    align-items: center;
+}
+input {
+    width: 60%;
+    height: 40px;
+    margin-bottom: 20px;
+    text-indent: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 120px;
+    /* 增加磨砂质感 */
+    backdrop-filter: blur(10px);
+}
+
+a{
+    text-decoration: none;
+}
+ul{
+   list-style: none; 
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.template{
+    width: 250px;
+    height: 200px;
+    padding: 1px;
+    margin-left: 50px;
+    margin-top: 30px;
+    display: inline-block;
+    z-index: 2;
+    /* 设置圆角 */
+    border-radius: 8px;
+    /* 设置边框 */
+    border: 1px solid rgba(255, 255, 255, .6);
+    /* 设置盒子阴影 */
+    box-shadow: 2px 1px 19px rgba(0, 0, 0, .1);
+}
+.title{
+    width: 230px;
+    height: 30px;
+    /* background-color: red; */
+    margin: 5px auto;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    background: url("/images/ui/suitTitle.png") no-repeat center;
+    background-size: cover;
+}
+form ul{
+    margin-left: 8px;
+    font-size: 17px;
+}
+form ul input{
+    border: none;
+}
+form ul input:focus{
+    outline: none;
+}
+.btnDiv{
+   /* margin-left: 130px; */
+   margin-top: 10px;
+}
+.btnDiv .btn{
+    color: white;
+    width: 50px;
+    height: 30px;
+    background-color: #4172B9;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    float: right;
+    margin-right: 10px;
+    line-height: 30px;
+}
+
+.btnDiv .keep{
+    color: white;
+    width: 50px;
+    height: 30px;
+    background-color: #4172B9;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+}
+.btnDiv .delete{
+    display: inline-block;
+    text-align: center;
+    color: white;
+    width: 50px;
+    height: 30px;
+    background-color: #DE5962;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+  
+}
