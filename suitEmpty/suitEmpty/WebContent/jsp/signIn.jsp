@@ -85,6 +85,8 @@
                 账号密码：<input type="password" placeholder="密码" id="login_password">
                 </form>
             </div>
+            <div class="tip2"></div>
+            <br>
             <!-- 按钮盒子 -->
             <div class="btn-box">
                 <button onclick="signIn()">登录</button>
@@ -105,6 +107,12 @@ $(document).ready(function () {
 function Tip(msg){
 	$(".tip").show().html("<div class='prompt'><i class='tishi_icon'></i>"+msg+"</div>");
 }
+
+//登录检测提示
+function Tip2(msg){
+	$(".tip2").show().html("<div class='prompt'><i class='tishi_icon'></i>"+msg+"</div>");
+}
+
 
  // 注册发送到后台后事件
 function doSignUp (data){
@@ -231,6 +239,28 @@ function doSignIn(data){
 	  
 }
 
+function cliSignIn(){
+	// 注册用户
+    var user = {};
+    // 用户名称
+    user.username = $("#login_username").val();
+    var usernameflag = false;
+    // 密码
+    user.password = $("#login_password").val();
+    var passwordflag = false;
+    
+    if(user.username == ""){
+    	Tip2("用户名称不能为空")
+    }else{
+    	usernameflag = true;
+    	if(user.password == ""){
+    		Tip2("账号密码不能为空")
+    	}else{
+    		passwordflag = true;
+    	}
+    }
+}
+
 
 // 账号登录
 function signIn(){
@@ -246,7 +276,10 @@ function signIn(){
 	
 	console.log(user);
 	// 发送登录请求
-	request("POST","<%=basePath%>/user/signIn",user,doSignIn,serverError)
+	if(cliSignIn()){
+		request("POST","<%=basePath%>/user/signIn",user,doSignIn,serverError);
+	}
+	
 }
 
 
