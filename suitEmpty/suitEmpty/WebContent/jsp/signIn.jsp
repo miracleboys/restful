@@ -149,7 +149,10 @@ function cliLogin(){
  	// 性别
     user.sex = $("input[name=sex]:checked").val();
     var sexflag = false;
-    
+    // 头像
+    user.model = userModel;
+    var modelflag = false;
+    	
     // console.log(user);
     
     if(user.username == ""){
@@ -172,6 +175,11 @@ function cliLogin(){
         			}else{
         				sexflag = true;
         				// 头像
+        				if( user.model == null){
+        					Tip('请选择头像');
+        				}else{
+        					modelflag = true;
+        				}
         			}
         		}
     		}
@@ -179,7 +187,7 @@ function cliLogin(){
     	}
     }
     
-    return usernameflag & nameflag & passwordflag & sexflag;
+    return usernameflag & nameflag & passwordflag & sexflag & modelflag;
     
 }
 

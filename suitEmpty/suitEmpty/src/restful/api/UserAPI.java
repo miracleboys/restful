@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import restful.bean.Result;
 import restful.database.EM;
+import restful.entity.Clothes;
 import restful.entity.User;
 
 @Path("user")
@@ -115,7 +116,7 @@ public class UserAPI {
 	
 	
 	
-	
+	// 修改个人信息
 	@POST
 	@Path("/update")
 	@Consumes("application/json;charset=UTF-8")
@@ -124,6 +125,9 @@ public class UserAPI {
 		// 信息修改
 		EM.getEntityManager().persist(EM.getEntityManager().merge(user));
 		EM.getEntityManager().getTransaction().commit();
+		
+		// session数据修改
+		
 		return new Result(0, "用户信息修改成功", user, "");
 	}
 	
@@ -137,6 +141,47 @@ public class UserAPI {
 		EM.getEntityManager().remove(EM.getEntityManager().merge(user));
 		EM.getEntityManager().getTransaction().commit();
 		return new Result(0,"成功删除",user,"");
+	}
+	
+	
+	// 服饰类别管理
+	
+	// 添加服饰类别
+	@POST
+	@Path("/addClothes")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result addClothes(Clothes clothes) {
+		
+		// 主键冲突
+		
+		
+		
+		
+		// 添加
+		clothes.setId(0);
+		clothes = EM.getEntityManager().merge(clothes);
+		EM.getEntityManager().persist(clothes);
+		EM.getEntityManager().getTransaction().commit();
+		
+		return new Result(0,"添加服饰类别",clothes,"");
+		
+	}
+	
+	// 修改服饰类别
+	@POST
+	@Path("/updateClothes")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result updateClothes(Clothes clothes) {
+		
+		// 主键冲突
+		
+		
+		// 修改
+		
+		
+		return new Result(0,"修改服饰类别",clothes,"");
 	}
 
 	

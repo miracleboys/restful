@@ -85,8 +85,8 @@ function Information(data){
 	// 用户ID，密码默认值
 	userID = data.data[0].id;
 	userpassword = data.data[0].password;
-	console.log(userID);
-	console.log(userpassword);
+	//console.log(userID);
+	//console.log(userpassword);
 	
 	
 	// 用户名称
@@ -203,6 +203,7 @@ function saveData(){
     
     // 保存信息
     if(clidata()){
+    	// 提示消失
     	request("POST","<%=basePath%>/user/update",user,doa,serverError);
     }
     
@@ -224,6 +225,9 @@ function clidata(){
  	// 性别
     user.sex = $("input[name=sex]:checked").val();
     var sexflag = false;
+    user.model = userModel;
+    var modelflag = false;
+    
     
     // console.log(user);
     
@@ -244,6 +248,11 @@ function clidata(){
     			}else{
     				sexflag = true;
     				// 头像
+    				if( user.model == null){
+    					Tip('请选择头像');
+    				}else{
+    					modelflag = true;
+    				}
     			}
     		}else{
     			if(user.password != user.rpassword){
@@ -255,6 +264,11 @@ function clidata(){
         			}else{
         				sexflag = true;
         				// 头像
+        				if( user.model == null){
+        					Tip('请选择头像');
+        				}else{
+        					modelflag = true;
+        				}
         			}
         		}
     		}
@@ -262,7 +276,7 @@ function clidata(){
     	}
     }
     
-    return usernameflag & nameflag & passwordflag & sexflag;
+    return usernameflag & nameflag & passwordflag & sexflag & modelflag;
 }
 
 function Tip(msg){

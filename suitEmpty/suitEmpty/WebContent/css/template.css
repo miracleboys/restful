@@ -61,6 +61,7 @@ ul{
     border: 1px solid rgba(255, 255, 255, .6);
     /* 设置盒子阴影 */
     box-shadow: 2px 1px 19px rgba(0, 0, 0, .1);
+    position: relative;
 }
 .title{
     width: 230px;
@@ -70,7 +71,7 @@ ul{
     text-align: center;
     line-height: 30px;
     border-radius: 5px;
-    background: url("/images/ui/suitTitle.png") no-repeat center;
+    background: url("../images/ui/suitTitle.png") no-repeat center;
     background-size: cover;
 }
 form ul{
@@ -98,6 +99,9 @@ form ul input:focus{
     float: right;
     margin-right: 10px;
     line-height: 30px;
+    position: absolute;
+    right: 10px;
+    top: 160px;
 }
 
 .btnDiv .keep{
@@ -108,6 +112,9 @@ form ul input:focus{
     border: none;
     border-radius: 8px;
     font-size: 17px;
+    position: absolute;
+    right: 70px;
+    top: 160px;
 }
 .btnDiv .delete{
     display: inline-block;
@@ -119,5 +126,8 @@ form ul input:focus{
     border: none;
     border-radius: 8px;
     font-size: 17px;
+    position: absolute;
+    right: 10px;
+    top: 160px;
   
 }

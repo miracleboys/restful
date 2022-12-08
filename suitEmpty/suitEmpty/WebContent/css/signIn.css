@@ -275,7 +275,7 @@ button:hover {
 /* 模型 */
 #maleModel{
     display: none;
-    height: 100px;
+    height: 81px;
         width: auto;
 }
 #maleModel div{
@@ -297,7 +297,7 @@ button:hover {
 
 #fmaleModel{
     display:none;
-    height: 100px;
+    height: 81px;
     width:auto;
     
 }

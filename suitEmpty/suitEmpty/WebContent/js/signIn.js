@@ -90,7 +90,7 @@ function sexmale(){
       
       
       flag4 = 0;
-      userModel = "";
+      userModel = null;
   }
 }
 
@@ -109,7 +109,7 @@ function sexfmale() {
      $(".mheadB").css("border-bottom", "");
      
      flag3 = 0;
-     userModel = "";
+     userModel = null;
   }
 }
 // 选择头像
@@ -132,6 +132,7 @@ function mheadA() {
     $(".mheadA").css("border-right", "");
     $(".mheadA").css("border-bottom", "");
     flag3 = 0;
+    userModel = null;
   }
  
 }
@@ -151,7 +152,7 @@ function mheadB() {
      $(".mheadB").css("border-right", "");
      $(".mheadB").css("border-bottom", "");
      flag3 = 0;
-
+     userModel = null;
   }
  
 }
@@ -174,6 +175,7 @@ function wheadA() {
     $(".wheadA").css("border-right", "");
     $(".wheadA").css("border-bottom", "");
     flag4 = 0;
+    userModel = null;
   }
 }
 
@@ -192,5 +194,6 @@ function wheadB() {
     $(".wheadB").css("border-right", "");
     $(".wheadB").css("border-bottom", "");
     flag4 = 0;
+    userModel = null;
   }
 }
