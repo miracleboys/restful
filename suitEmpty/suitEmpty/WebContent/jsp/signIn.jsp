@@ -57,8 +57,8 @@
                     <div><img src="../images/data/model/mheadB.png" alt="" onclick="mheadB()" class="mheadB"></div>
                 </div>
                 <div id="fmaleModel">
-                    <div><img src="../images/data/model/wheadA.png" alt="" onclick="wheadA()" class="mheadA"></div>
-                    <div><img src="../images/data/model/wheadB.png" alt="" onclick="wheadB()" class="mheadB"></div>
+                    <div><img src="../images/data/model/wheadA.png" alt="" onclick="wheadA()" class="wheadA"></div>
+                    <div><img src="../images/data/model/wheadB.png" alt="" onclick="wheadB()" class="wheadB"></div>
                 </div>
                 </form>
             </div>
@@ -209,7 +209,7 @@ function signOn(){
     user.model = userModel;
     
     
-    console.log(user.model);
+    //console.log(user.model);
     
     console.log(user);
     
@@ -259,6 +259,7 @@ function cliSignIn(){
     		passwordflag = true;
     	}
     }
+    return usernameflag & passwordflag;
 }
 
 

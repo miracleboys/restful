@@ -7,6 +7,9 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import restful.bean.Result;
 import restful.database.EM;
@@ -14,7 +17,8 @@ import restful.entity.User;
 
 @Path("user")
 public class UserAPI {
-	
+//	@Autowired
+//	private HttpServletRequest request;
 	
 	// 账号注册
 	@POST
@@ -56,7 +60,7 @@ public class UserAPI {
 	@Path("/signIn")
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
-	public Result signIn(User user) {
+	public Result signIn(@Context HttpServletRequest request,User user) {
 		
 		// 数据库获取
 		List<User> result = EM.getEntityManager()
@@ -71,6 +75,14 @@ public class UserAPI {
 			return new Result(-1, "登录失败，名称或密码错误", user, "");
 		}else {
 			// 找到
+			request.getSession().setAttribute("user", result);
+			
+//			System.out.println("---------------");
+//			System.out.println("---------------");
+//			System.out.println(result);
+//			System.out.println("---------------");
+//			System.out.println("---------------");
+			
 			return new Result(0, "登录成功", result, "");
 		}
 	
@@ -79,6 +91,31 @@ public class UserAPI {
 	
 	
 	// 个人账号管理
+	@POST
+	@Path("/Pinformation")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result information(@Context HttpServletRequest request,User user) {
+		
+		// 刷新页面数据，数据库
+		List<User> result = (List<User>) request.getSession().getAttribute("user");
+		
+//		List<User> result = EM.getEntityManager()
+//				.createNamedQuery("User.signIn", User.class)
+//				.setParameter("username","%"+user.getUsername()+"%")
+//				.setParameter("password","%"+user.getPassword()+"%")
+//				.getResultList();
+
+
+		
+		return new Result(0, "登录成功", result, "");
+	}
+	
+	
+	
+	
+	
+	
 	@POST
 	@Path("/update")
 	@Consumes("application/json;charset=UTF-8")
@@ -93,7 +130,7 @@ public class UserAPI {
 	
 	// 删除
 	@POST
-	@Path("/update")
+	@Path("/dalete")
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
 	public Result delete(User user) {

@@ -78,6 +78,19 @@ function sexmale(){
   if(flag2 == false){
       $("#maleModel").css("display", "block");
       $("#fmaleModel").css("display", "none");
+      
+      $(".wheadA").css("border-left", "");
+      $(".wheadA").css("border-top", "");
+      $(".wheadA").css("border-right", "");
+      $(".wheadA").css("border-bottom", "");
+      $(".wheadB").css("border-left", "");
+      $(".wheadB").css("border-top", "");
+      $(".wheadB").css("border-right", "");
+      $(".wheadB").css("border-bottom", "");
+      
+      
+      flag4 = 0;
+      userModel = "";
   }
 }
 
@@ -85,6 +98,18 @@ function sexfmale() {
   if (flag2 == false) {
     $("#fmaleModel").css("display", "block");
      $("#maleModel").css("display", "none");
+     
+     $(".mheadA").css("border-left", "");
+     $(".mheadA").css("border-top", "");
+     $(".mheadA").css("border-right", "");
+     $(".mheadA").css("border-bottom", "");
+     $(".mheadB").css("border-left", "");
+     $(".mheadB").css("border-top", "");
+     $(".mheadB").css("border-right", "");
+     $(".mheadB").css("border-bottom", "");
+     
+     flag3 = 0;
+     userModel = "";
   }
 }
 // 选择头像
@@ -137,17 +162,17 @@ var flag4 = 0;
 function wheadA() {
   console.log(flag4);
   if (flag4 == 0) {
-    $(".mheadA").css("border-left", "1px solid #fff");
-    $(".mheadA").css("border-top", "1px solid #fff");
-    $(".mheadA").css("border-right", "3px solid #000");
-    $(".mheadA").css("border-bottom", "3px solid #000");
+    $(".wheadA").css("border-left", "1px solid #fff");
+    $(".wheadA").css("border-top", "1px solid #fff");
+    $(".wheadA").css("border-right", "3px solid #000");
+    $(".wheadA").css("border-bottom", "3px solid #000");
     flag4 = 1;
     userModel = "wheadA";
   } else if (flag4 == 1) {
-    $(".mheadA").css("border-left", "");
-    $(".mheadA").css("border-top", "");
-    $(".mheadA").css("border-right", "");
-    $(".mheadA").css("border-bottom", "");
+    $(".wheadA").css("border-left", "");
+    $(".wheadA").css("border-top", "");
+    $(".wheadA").css("border-right", "");
+    $(".wheadA").css("border-bottom", "");
     flag4 = 0;
   }
 }
@@ -155,17 +180,17 @@ function wheadA() {
 function wheadB() {
   console.log(flag4);
   if (flag4 == 0) {
-    $(".mheadB").css("border-left", "1px solid #fff");
-    $(".mheadB").css("border-top", "1px solid #fff");
-    $(".mheadB").css("border-right", "3px solid #000");
-    $(".mheadB").css("border-bottom", "3px solid #000");
+    $(".wheadB").css("border-left", "1px solid #fff");
+    $(".wheadB").css("border-top", "1px solid #fff");
+    $(".wheadB").css("border-right", "3px solid #000");
+    $(".wheadB").css("border-bottom", "3px solid #000");
     flag4 = -1;
     userModel = "wheadB";
   } else if (flag4 == -1) {
-    $(".mheadB").css("border-left", "");
-    $(".mheadB").css("border-top", "");
-    $(".mheadB").css("border-right", "");
-    $(".mheadB").css("border-bottom", "");
+    $(".wheadB").css("border-left", "");
+    $(".wheadB").css("border-top", "");
+    $(".wheadB").css("border-right", "");
+    $(".wheadB").css("border-bottom", "");
     flag4 = 0;
   }
 }

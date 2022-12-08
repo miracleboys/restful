@@ -271,3 +271,26 @@ button:hover {
     border-left: 3px solid #000;
     border-top: 3px solid #000;
 }
+
+/* 提示 */
+div.prompt{
+	background: #ffffff;
+    border: 1px solid #F94D50;
+    color: #F94D50;
+    text-align: left;
+    padding-left: 40px;
+    height: 30px;
+    line-height: 28px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.tishi_icon{
+	background: url(../images/error.png) no-repeat;
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 5px;
+    left: 15px;
+}
