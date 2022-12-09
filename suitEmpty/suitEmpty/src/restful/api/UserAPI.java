@@ -92,6 +92,8 @@ public class UserAPI {
 	
 	
 	// 个人账号管理
+	
+	// 展示个人信息
 	@POST
 	@Path("/Pinformation")
 	@Consumes("application/json;charset=UTF-8")
@@ -101,13 +103,6 @@ public class UserAPI {
 		// 刷新页面数据，数据库
 		List<User> result = (List<User>) request.getSession().getAttribute("user");
 		
-//		List<User> result = EM.getEntityManager()
-//				.createNamedQuery("User.signIn", User.class)
-//				.setParameter("username","%"+user.getUsername()+"%")
-//				.setParameter("password","%"+user.getPassword()+"%")
-//				.getResultList();
-
-
 		
 		return new Result(0, "登录成功", result, "");
 	}
@@ -130,6 +125,35 @@ public class UserAPI {
 		
 		return new Result(0, "用户信息修改成功", user, "");
 	}
+	
+	// 用户管理
+	
+	// 展示用户管理
+	@POST
+	@Path("/userManage")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result userManage(@Context HttpServletRequest request) {
+		
+		// 刷新页面数据，数据库
+		List<User> result = (List<User>) request.getSession().getAttribute("user");
+		
+		return new Result(0, "登录成功", result, "");
+	}
+	
+	// 修改用户管理
+	@POST
+	@Path("/updateUserManage")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result updateUserManage() {
+		
+		
+		
+		return new Result(0, "登录成功", "shj", "");
+	}
+	
+	
 	
 	
 	// 删除
@@ -184,6 +208,14 @@ public class UserAPI {
 		return new Result(0,"修改服饰类别",clothes,"");
 	}
 
-	
+	// 删除服饰类别
+	@POST
+	@Path("/deleteClothes")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result deleteClothes(Clothes clothes) {
+		
+		return new Result(0,"删除服饰类别",clothes,"");
+	}
 	
 }

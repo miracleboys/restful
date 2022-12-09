@@ -1,10 +1,18 @@
 package restful.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "clothes")
+@NamedQueries({
+	@NamedQuery(name = "Clothes.findAll", query="SELECT clothes FROM Clothes clothes"),
+	@NamedQuery(name = "Clothes.findByName", query="SELECT clothes FROM Clothes clothes where clothes.code like :code")
+	
+})
+
 public class Clothes  extends IdEntity{
 	private String code;
 	private String name;

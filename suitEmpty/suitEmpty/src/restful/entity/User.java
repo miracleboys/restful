@@ -9,7 +9,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 @NamedQueries({
 	@NamedQuery(name = "User.signUp", query="SELECT user FROM User user where user.username like :username"),
-	@NamedQuery(name = "User.signIn", query="SELECT user FROM User user where user.username like :username and user.password like :password")
+	@NamedQuery(name = "User.signIn", query="SELECT user FROM User user where user.username like :username and user.password like :password"),
+	@NamedQuery(name = "User.findAll", query="SELECT user FROM User user")
 })
 
 public class User  extends IdEntity{
