@@ -112,7 +112,7 @@ public class UserAPI {
 	@Path("/update")
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
-	public Result update(User user) {
+	public Result update(@Context HttpServletRequest request,User user) {
 		// 冲突
 		
 		
@@ -120,7 +120,8 @@ public class UserAPI {
 		EM.getEntityManager().persist(EM.getEntityManager().merge(user));
 		EM.getEntityManager().getTransaction().commit();
 		
-		// session数据修改
+		// session数据修改,服务器故障？？？？？？？？？？
+		/// request.getSession().setAttribute("user", user);
 		
 		return new Result(0, "用户信息修改成功", user, "");
 	}
@@ -132,12 +133,17 @@ public class UserAPI {
 	@Path("/userManage")
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
-	public Result userManage(@Context HttpServletRequest request) {
+	public Result userManage() {
+		// 用户权限
+		
 		
 		// 刷新页面数据，数据库
-		List<User> result = (List<User>) request.getSession().getAttribute("user");
+		List<User> result = EM.getEntityManager()
+				.createNamedQuery("User.findAll", User.class)
+				.getResultList();
 		
-		return new Result(0, "登录成功", result, "");
+		
+		return new Result(0, "用户管理信息查询成功", result, "");
 	}
 	
 	// 修改用户管理
@@ -157,13 +163,15 @@ public class UserAPI {
 	
 	// 删除
 	@POST
-	@Path("/dalete")
+	@Path("/deleteUserManage")
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
-	public Result delete(User user) {
+	public Result deleteUserManage(User user) {
+		
 		EM.getEntityManager().remove(EM.getEntityManager().merge(user));
 		EM.getEntityManager().getTransaction().commit();
-		return new Result(0,"成功删除",user,"");
+		
+		return new Result(0,"成功删除用户",user,"");
 	}
 	
 	

@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="leftimg"><a href="PInformation.jsp" target="view"><img src="../images/ui/self.png" style="width: 78px ; height: 78px;"></a></div>
-    <div class="leftimg"><a href="" target="view"><img src="../images/ui/userList.png" style="width: 80px ; height: 80px;"></a></div>
+    <div class="leftimg"><a href="userManage.jsp" target="view"><img src="../images/ui/userList.png" style="width: 80px ; height: 80px;"></a></div>
     <div class="leftimg"><a href="template.jsp" target="view"><img src="../images/ui/catalog.png" style="width: 80px ; height: 80px;"></a></div>
     <div class="leftimg"><a href="" target="view"><img src="../images/ui/suits.png" style="width: 80px ; height: 80px;"></a></div>
     <div class="leftimg"><a href="" target="view"><img src="../images/ui/mySuits.png" style="width: 80px ; height: 80px;"></a></div>

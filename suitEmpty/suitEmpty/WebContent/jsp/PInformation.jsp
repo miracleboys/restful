@@ -76,6 +76,7 @@ $(document).ready(function () {
 
 var userID = null;
 var userpassword = null;
+// 用户权限不能改变。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 
 // 刷新页面
 function Information(data){
