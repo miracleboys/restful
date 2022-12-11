@@ -79,11 +79,7 @@ public class UserAPI {
 			request.getSession().setAttribute("user", result);
 			
 //			System.out.println("---------------");
-//			System.out.println("---------------");
-//			System.out.println(result);
-//			System.out.println("---------------");
-//			System.out.println("---------------");
-			
+	
 			return new Result(0, "登录成功", result, "");
 		}
 	
@@ -117,6 +113,9 @@ public class UserAPI {
 	@Consumes("application/json;charset=UTF-8")
 	@Produces("application/json;charset=UTF-8")
 	public Result update(User user) {
+		// 冲突
+		
+		
 		// 信息修改
 		EM.getEntityManager().persist(EM.getEntityManager().merge(user));
 		EM.getEntityManager().getTransaction().commit();
@@ -170,6 +169,25 @@ public class UserAPI {
 	
 	// 服饰类别管理
 	
+	// 展示服饰类别
+	@POST
+	@Path("/showClothes")
+	@Consumes("application/json;charset=UTF-8")
+	@Produces("application/json;charset=UTF-8")
+	public Result showClothes() {
+		// 用户权限
+		
+		
+		
+		// 数据库查询所有服饰类别
+		List<Clothes> result = EM.getEntityManager()
+				.createNamedQuery("Clothes.findAll", Clothes.class)
+				.getResultList();
+		
+		
+		return new Result(0,"服饰类别查询成功",result,"");
+	}
+	
 	// 添加服饰类别
 	@POST
 	@Path("/addClothes")
@@ -178,17 +196,24 @@ public class UserAPI {
 	public Result addClothes(Clothes clothes) {
 		
 		// 主键冲突
+		List<Clothes> result = EM.getEntityManager()
+				.createNamedQuery("Clothes.findByCode", Clothes.class)
+				.setParameter("code", "%"+clothes.getCode()+"%")
+				.getResultList();
+				
+		if(result.isEmpty()) {
+			// 添加
+			clothes.setId(0);
+			clothes = EM.getEntityManager().merge(clothes);
+			EM.getEntityManager().persist(clothes);
+			EM.getEntityManager().getTransaction().commit();
+			
+			return new Result(0,"成功添加服饰类别",clothes,"");
+		}else{
+			return new Result(-1,"添加失败，存在相同编号的服饰类别",clothes,"");
+		}
 		
 		
-		
-		
-		// 添加
-		clothes.setId(0);
-		clothes = EM.getEntityManager().merge(clothes);
-		EM.getEntityManager().persist(clothes);
-		EM.getEntityManager().getTransaction().commit();
-		
-		return new Result(0,"添加服饰类别",clothes,"");
 		
 	}
 	
@@ -200,12 +225,24 @@ public class UserAPI {
 	public Result updateClothes(Clothes clothes) {
 		
 		// 主键冲突
+		List<Clothes> result = EM.getEntityManager()
+				.createNamedQuery("Clothes.findByCode", Clothes.class)
+				.setParameter("code", "%"+clothes.getCode()+"%")
+				.getResultList();
 		
 		
-		// 修改
+		// 修改服饰类别
+		if(result.isEmpty()) {
+			EM.getEntityManager().persist(EM.getEntityManager().merge(clothes));
+			EM.getEntityManager().getTransaction().commit();
+			
+			return new Result(0,"成功修改服饰类别",clothes,"");
+		}else {
+			
+			return new Result(-1,"修改失败，服饰类别编号存在相同",clothes,"");
+		}
 		
 		
-		return new Result(0,"修改服饰类别",clothes,"");
 	}
 
 	// 删除服饰类别
@@ -215,7 +252,10 @@ public class UserAPI {
 	@Produces("application/json;charset=UTF-8")
 	public Result deleteClothes(Clothes clothes) {
 		
-		return new Result(0,"删除服饰类别",clothes,"");
+		EM.getEntityManager().remove(EM.getEntityManager().merge(clothes));
+		EM.getEntityManager().getTransaction().commit();
+		
+		return new Result(0,"成功删除服饰类别",clothes,"");
 	}
 	
 }

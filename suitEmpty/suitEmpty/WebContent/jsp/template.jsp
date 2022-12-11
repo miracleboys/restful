@@ -14,18 +14,22 @@
      <script src="../js/main.js"></script>
 </head>
 <body>
+
     <div class="template">
         <div class="title">服饰类别</div>
         
             <div class="input-box">
             <ul>
+            <li>
+            <input class="inputID id" type="hidden">
+            </li>
                 <li>
                     编号：
-                    <input class="inputVal" type="text">
+                    <input class="inputVal code" type="text">
                 </li>
                 <li>
                     名称：
-                    <input class="inputVal" type="text">
+                    <input class="inputVal name" type="text">
                 </li>
             </ul>
         
@@ -39,11 +43,64 @@
 <script>
 $(document).ready(function(){
 	// 已有服饰类别展示
-	
+	request("POST","<%=basePath%>/user/showClothes", {}, shouwlist, serverError,true);
 
        
 });
 
+function shouwlist(responseData){
+	// 返回信息
+	showMessage(responseData);
+	
+	// 异常
+	if(responseData.code < 0){
+		return;
+	}
+	
+	// 数据库里的数据
+	var clothes = responseData.data;
+	console.log(clothes);
+	
+	$(clothes).each(function(index,item){
+		let clothesDiv = $(".template:first-of-type").clone(true);
+		$(clothesDiv).find(".id").attr('value',item.id);
+		$(clothesDiv).find(".code").attr('value',item.code);
+		$(clothesDiv).find(".name").attr('value',item.name);
+		clothesDiv.find("button").remove();
+		clothesDiv.find(".btnDiv").append(`
+	        <button class="btn delete" onclick="deleteclothes(this)">删除</button>
+	        <button class="btn keep"  onclick="updateclothes(this)">保存</button>
+	    `);
+	        $("body").append(clothesDiv);
+	})
+	
+	
+}
+
+
+
+function addclothes(){
+	// 获取服饰类别编号和名称
+    var num = $(this).find(".code").val();
+    var nam = $(this).find(".name").val();
+    
+    // 数据库
+    var codes = document.querySelectorAll(".inputVal");
+
+    clothes = {};
+    clothes.code = codes[0].value;
+    clothes.name = codes[1].value;
+    
+    // 编号名称为空
+    if(cliclothes()){
+    	request("POST","<%=basePath%>/user/addClothes",clothes,doadd,serverError,true);
+    }
+   
+    
+    
+}
+
+//编号名称为空
 function cliclothes(){
 	var codes = document.querySelectorAll(".inputVal");
 	var codeflag = false;
@@ -66,76 +123,107 @@ function cliclothes(){
 	    
 }
 
-function addclothes(){
-	// 获取服饰类别编号和名称
-    var num = $(this).find(".code").val();
-    var nam = $(this).find(".name").val();
-    
-    // 数据库
-    var codes = document.querySelectorAll(".inputVal");
-
-    clothes = {};
-    clothes.code = codes[0].value;
-    clothes.name = codes[1].value;
-    
-    //console.log(clothes);
-    //console.log(codes);
-    // 编号名称为空
-    if(cliclothes()){
-    	request("POST","<%=basePath%>/user/addClothes",clothes,doadd,serverError);
-    	// 要在成功后面复制，获取数据ID隐藏
-        let html = $(".template:first-of-type").clone(true);
-        $(html).attr('code',num);
-        $(html).attr('name',nam);
-        html.find("button").remove();
-        html.find(".btnDiv").append(`
-        <button class="btn delete" onclick="deleteclothes(this)">删除</button>
-        <button class="btn keep"  onclick="updateclothes(this)">保存</button>
-    `);
-        $("body").append(html);
-    }
-   
-    
-    
-}
-
 
 // 添加成功
-function doadd(){
-	alert("ss");
+function doadd(data){
+	if(data.code < 0){
+		alert(data.description);
+	}else{
+		alert(data.description);
+		var clothesData = data.data;
+		
+		console.log(clothesData);
+		let clothesDiv = $(".template:first-of-type").clone(true);
+		$(clothesDiv).find(".id").attr('value',clothesData.id);
+		$(clothesDiv).find(".code").attr('value',clothesData.code);
+		$(clothesDiv).find(".name").attr('value',clothesData.name);
+		clothesDiv.find("button").remove();
+		clothesDiv.find(".btnDiv").append(`
+	        <button class="btn delete" onclick="deleteclothes(this)">删除</button>
+	        <button class="btn keep"  onclick="updateclothes(this)">保存</button>
+	    `);
+	        $("body").append(clothesDiv);
+		
+	}
 }
 
 
 // 删除服饰类别
 function deleteclothes(obj){
-	//console.log(obj);
-	var a = "帽子";
+	
+	var clothesname = obj.parentNode.parentNode.children[0].children[2].children[0].value;
+	
 	// 确定删除
-	var result = window.confirm("你确定要删除"+a+"吗?");
+	var result = window.confirm("你确定要删除"+ clothesname +"吗?");
 	
 	if(result == true){
+		var clothesid = obj.parentNode.parentNode.children[0].children[0].children[0].value;
+		var clothescode = obj.parentNode.parentNode.children[0].children[1].children[0].value;
+		var clothesname = obj.parentNode.parentNode.children[0].children[2].children[0].value;
+		// 服饰ID编号名称
+		clothes = {};
+		clothes.id = clothesid;
+		clothes.code = clothescode;
+		clothes.name = clothesname;
+		
 		// 页面删除
 		obj.parentNode.parentNode.parentNode.remove();
 		// 数据库删除
-		
+		request("POST","<%=basePath%>/user/deleteClothes",clothes,dodelete,serverError,true);
 	}
 	
+}
+
+function dodelete(responseData){
+	showMessage(responseData);
 }
 
 
 // 修改服饰类别
 function updateclothes(obj){
-	console.log(obj);
+	// console.log(obj.parentNode.parentNode.children[0].children[0].children[0]);
 	
+	var clothesid = obj.parentNode.parentNode.children[0].children[0].children[0].value;
+	var clothescode = obj.parentNode.parentNode.children[0].children[1].children[0].value;
+	var clothesname = obj.parentNode.parentNode.children[0].children[2].children[0].value;
 	// 服饰ID编号名称
 	clothes = {};
-	clothes.id = "12";
-	clothes.code = "ss";
-	clothes.name = "ssss";
+	clothes.id = clothesid;
+	clothes.code = clothescode;
+	clothes.name = clothesname;
 	
-	// 不为空
+	console.log(clothes);
+	// 修改后服饰类别不为空
+	if(clothesEmpty(clothescode,clothesname)){
+		request("POST","<%=basePath%>/user/updateClothes",clothes,doupdate,serverError,true);
+	}
 	
 	
+}
+
+// 修改后服饰类别不为空
+function clothesEmpty(clothescode,clothesname){
+	var codeflag = false;
+	var nameflag = false;
+	
+	
+	if(clothescode == ""){
+		alert("编号不能为空");
+	}else{
+		codeflag = true;
+		if(clothesname == ""){
+			alert("名称不能为空");	
+		}else{
+			nameflag = true;
+		}
+	}
+	
+	return nameflag & codeflag;
+}
+
+// 成功修改
+function doupdate(responseData){
+	showMessage(responseData);
 }
 
 

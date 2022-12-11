@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "clothes")
 @NamedQueries({
 	@NamedQuery(name = "Clothes.findAll", query="SELECT clothes FROM Clothes clothes"),
-	@NamedQuery(name = "Clothes.findByName", query="SELECT clothes FROM Clothes clothes where clothes.code like :code")
+	@NamedQuery(name = "Clothes.findByCode", query="SELECT clothes FROM Clothes clothes where clothes.code like :code")
 	
 })
 
